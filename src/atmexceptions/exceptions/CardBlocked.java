@@ -1,11 +1,11 @@
 package atmexceptions.exceptions;
 
-public class cardBlockedException extends Exception{
-    public cardBlockedException() {
+public class CardBlocked extends Exception{
+    public CardBlocked() {
         super("Card is blocked. Please go to your local bank to fix the issue.");
     }
 
-    public cardBlockedException(String message) {
+    public CardBlocked(String message) {
         super(message);
     }
 }

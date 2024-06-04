@@ -1,9 +1,6 @@
 package atmexceptions;
 
-import atmexceptions.exceptions.cardBlockedException;
-import atmexceptions.exceptions.cardNegativeBalanceException;
-import atmexceptions.exceptions.pinErrorException;
-import atmexceptions.exceptions.pinToManyAttemptsException;
+import atmexceptions.exceptions.*;
 
 public class Card {
 
@@ -26,17 +23,17 @@ public class Card {
     protected boolean checkPin(int pin) throws Exception {
 
         if (this.cardBlocked) {
-            throw new cardBlockedException();
+            throw new CardBlocked();
         }
 
         this.numberOfPinAttempts++;
         if(this.numberOfPinAttempts == 3) {
             this.cardBlocked = true;
-            throw new pinToManyAttemptsException();
+            throw new CardPinToManyAttempts();
         }
 
         if (this.pin != pin) {
-            throw new pinErrorException();
+            throw new CardPinError();
         }
 
         this.numberOfPinAttempts = 0;
@@ -50,24 +47,21 @@ public class Card {
     protected int withdraw(int withdrawValue) throws Exception {
 
         if (this.dailyWithdrawMaxReached) {
-            // throw new cardDailyLimitReached
-            throw new Exception("Current daily limit reached.");
+            throw new CardDailyLimitReached();
         }
 
         if (withdrawValue > this.withdrawLimit) {
-            // throw new cardWithdrawLimit
-            throw new Exception("Max withdraw is: " + this.withdrawLimit);
+            throw new CardWithdrawLimit();
         }
 
         if((this.balance - withdrawValue) < 0) {
-            throw new cardNegativeBalanceException();
+            throw new CardNegativeBalance("No enough balance to withdraw that value.");
         }
 
         this.currentWithdraw += withdrawValue;
         if (currentWithdraw > this.withdrawLimit) {
             this.dailyWithdrawMaxReached = true;
-            // throw new cardWithdrawLimitReached
-            throw new Exception("Withdraw limit reached.");
+            throw new CardDailyLimitReached();
         }
 
         this.balance -= withdrawValue;

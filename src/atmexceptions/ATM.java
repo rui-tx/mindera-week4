@@ -21,15 +21,15 @@ public class ATM {
 
         try {
             card.checkPin(pin);
-        } catch (cardBlockedException e) {
+        } catch (CardBlocked e) {
             System.out.println(e.getMessage());
             return CARD_BLOCKED;
 
-        } catch (pinToManyAttemptsException e) {
+        } catch (CardPinToManyAttempts e) {
             System.out.println(e.getMessage());
             return PIN_MAX_ATTEMPTS_REACHED;
 
-        } catch (pinErrorException e) {
+        } catch (CardPinError e) {
             System.out.println(e.getMessage());
             return PIN_ERROR;
 
@@ -48,16 +48,25 @@ public class ATM {
 
         try {
             card.withdraw(withdrawValue);
-        } catch (cardNegativeBalanceException e) {
+
+        } catch (CardNegativeBalance e) {
             System.out.println("Can't withdraw: " + e.getMessage());
             return NO_BALANCE;
 
+        } catch (CardWithdrawLimit e) {
+            System.out.println("Can't withdraw: " + e.getMessage());
+            return WITHDRAW_HIGHER_THEN_ALLOWED;
+
+        } catch (CardDailyLimitReached e) {
+            System.out.println("Can't withdraw: " + e.getMessage());
+            return DAILY_LIMIT_REACHED;
+
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Can't withdraw: " + e.getMessage());
             return GENERIC_ERROR;
         }
 
-        System.out.println("Successfully withdraw " + withdrawValue + "€");
+        System.out.println("Successfully withdraw: " + withdrawValue + "€");
         return SUCCESS;
     }
 
@@ -76,7 +85,7 @@ public class ATM {
             return NO_CARD;
         }
 
-        System.out.println("Current card balance : " + card.getBalance() + "€");
+        System.out.println("Current card balance: " + card.getBalance() + "€");
         return SUCCESS;
     }
 }

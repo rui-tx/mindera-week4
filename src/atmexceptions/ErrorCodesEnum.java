@@ -13,7 +13,9 @@ public enum ErrorCodesEnum {
     PIN_ERROR(200, "Pin error."),
     PIN_MAX_ATTEMPTS_REACHED(201, "Card pin max attempts reached"),
     NO_BALANCE(202, "No balance."),
-    CARD_BLOCKED(203, "Card is blocked.");
+    CARD_BLOCKED(203, "Card is blocked."),
+    DAILY_LIMIT_REACHED(204, "Current daily limit reached."),
+    WITHDRAW_HIGHER_THEN_ALLOWED(205, "Withdraw value is higher then the limit allowed.");
 
     private int id;
     private String errorString;
