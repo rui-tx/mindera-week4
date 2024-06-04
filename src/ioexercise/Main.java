@@ -11,7 +11,7 @@ public class Main {
         while (!exitProgram) {
             try {
                 printMainMenu();
-                System.out.print("> ");
+                System.out.print("[option]> ");
                 input = reader.readLine().toUpperCase();
 
                 MenuEnum test = MenuEnum.valueOf(input);
@@ -45,8 +45,9 @@ public class Main {
 
     public static void printMainMenu() {
         System.out.println();
+        System.out.printf("%s\t%s\n", "Option", "Description");
         for (int i = 0; i < MenuEnum.values().length; i++) {
-            System.out.printf("[%s]: %s\n", MenuEnum.values()[i], MenuEnum.values()[i].getDesc());
+            System.out.printf("[%s]\t%s\n", MenuEnum.values()[i], MenuEnum.values()[i].getDesc());
         }
         System.out.println();
     }
@@ -55,7 +56,9 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String input = null;
         try {
-            System.out.println("Dir to list file: ");
+            System.out.println("Please input the directory to display all files inside it: ");
+            System.out.println("Absolute and Relative paths are valid.");
+            System.out.print("[directory]> ");
             input = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -67,6 +70,7 @@ public class Main {
             return;
         }
 
+        System.out.println("Listing files and directories from '" + input + "'");
         for (String dir : dirToList.list()) {
             System.out.println(dir);
         }
@@ -78,28 +82,30 @@ public class Main {
         String path = null;
 
         try {
-            System.out.println("File Name / Directory: ");
+            System.out.println("Please input the file / directory to check if exists: ");
+            System.out.println("Absolute and Relative paths are valid.");
+            System.out.print("[file]> ");
             fileName = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         try {
-            System.out.println("Path: ");
+            System.out.println("Enter path. This file / directory should be at '[path]/" + fileName);
+            System.out.print("[path]> ");
             path = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        System.out.println(path.concat(fileName));
-
+        path = path.concat("/");
         File checkIfExist = new File(path.concat(fileName));
         if (!checkIfExist.exists()) {
-            System.out.println("Path is invalid / does not exist.");
+            System.out.println("The path to the file is invalid / does not exist.");
             return;
         }
 
-        System.out.println("file exists! " + path.concat(fileName));
+        System.out.println("The file / directory exists! Final path to file: " + path.concat(fileName));
     }
 
     public static void askUserForFileAndPathAndSeeIfExistsFull() {
@@ -108,10 +114,17 @@ public class Main {
         String path = null;
 
         try {
-            System.out.println("Full Path: ");
+            System.out.println("Please input the directory to check if file exists: ");
+            System.out.println("Only absolute paths are valid.");
+            System.out.print("[directory]> ");
             path = reader.readLine();
 
             File checkIfExist = new File(path);
+            if (!checkIfExist.isAbsolute()) {
+                System.out.println("Only absolute paths are valid.");
+                return;
+            }
+
             if (!checkIfExist.exists()) {
                 System.out.println("Path is invalid / does not exist.");
                 return;
@@ -122,69 +135,21 @@ public class Main {
         }
 
         try {
-            System.out.println("File Name ");
+            System.out.println("Please input the file name to check if exists: ");
+            System.out.print(path + "/[file]> ");
             fileName = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         path = path.concat("/");
-        System.out.println(path.concat(fileName));
-
         File checkIfExist = new File(path.concat(fileName));
         if (!checkIfExist.exists()) {
             System.out.println("Path is invalid / does not exist.");
             return;
         }
 
-        System.out.println("file exists! " + path.concat(fileName));
-    }
-
-    public static void createNewFileInPathFull() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String fileName = null;
-        String path = null;
-
-        try {
-            System.out.println("Full Path: ");
-            path = reader.readLine();
-
-            File checkIfExist = new File(path);
-            if (!checkIfExist.exists()) {
-                System.out.println("Path is invalid / does not exist.");
-                return;
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            System.out.println("File Name: ");
-            fileName = reader.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        path = path.concat("/");
-        path = path.concat(fileName);
-
-        String text = "success!";
-
-
-        BufferedWriter writer = null;
-
-        try {
-            writer = new BufferedWriter(new FileWriter(path));
-            writer.write(text);
-
-            writer.flush();
-
-            writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        System.out.println("The file exists! File path: " + path.concat(fileName));
     }
 
     public static void createNewFileInPath() {
@@ -193,14 +158,18 @@ public class Main {
         String path = null;
 
         try {
-            System.out.println("Directory: ");
+            System.out.println("Please input the directory to save the file: ");
+            System.out.println("Absolute and Relative paths are valid.");
+            System.out.print("[directory]> ");
             path = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         try {
-            System.out.println("File Name: ");
+            System.out.println("Please input the file name: ");
+            System.out.println("Absolute and Relative paths are valid.");
+            System.out.print(path + "/[file]> ");
             fileName = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -209,22 +178,71 @@ public class Main {
         path = path.concat("/");
         path = path.concat(fileName);
 
-        String text = "success!";
-
+        String text = "This is a new file with this text inside.\n";
 
         BufferedWriter writer = null;
-
         try {
             writer = new BufferedWriter(new FileWriter(path));
             writer.write(text);
-
             writer.flush();
-
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+        System.out.println("The file was made with success! File path: " + path);
     }
 
+    public static void createNewFileInPathFull() {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String fileName = null;
+        String path = null;
+
+        try {
+            System.out.println("Please input the directory to save the file: ");
+            System.out.println("Only absolute paths are valid.");
+            System.out.print("[directory]> ");
+            path = reader.readLine();
+
+            File checkIfExist = new File(path);
+            if (!checkIfExist.isAbsolute()) {
+                System.out.println("Only absolute paths are valid.");
+                return;
+            }
+
+            if (!checkIfExist.exists()) {
+                System.out.println("Path is invalid / does not exist.");
+                return;
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            System.out.println("Please input the file name: ");
+            System.out.println("Absolute and Relative paths are valid.");
+            System.out.print(path + "/[file]> ");
+            fileName = reader.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        path = path.concat("/");
+        path = path.concat(fileName);
+
+        String text = "This is a new file with this text inside.\n";
+
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(path));
+            writer.write(text);
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("The file was made with success! File path: " + path);
+    }
 }
