@@ -1,1 +1,3 @@
-exercices from week4
+# exercices from week4
+
+    - ATM with exceptions
