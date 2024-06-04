@@ -5,20 +5,50 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
 
-        // 1
-        //askAndPrintUserDirToPrint();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String input = null;
+        boolean exitProgram = false;
+        while (!exitProgram) {
+            try {
+                printMainMenu();
+                System.out.print("> ");
+                input = reader.readLine().toUpperCase();
 
-        // 2a
-        //askUserForFileAndPathAndSeeIfExists();
-        // 2b
-        //askUserForFileAndPathAndSeeIfExistsFull();
+                MenuEnum test = MenuEnum.valueOf(input);
+                switch (test) {
+                    case OP1A:
+                        askAndPrintUserDirToPrint();
+                        break;
+                    case OP2A:
+                        askUserForFileAndPathAndSeeIfExists();
+                        break;
+                    case OP2B:
+                        askUserForFileAndPathAndSeeIfExistsFull();
+                        break;
+                    case OP3A:
+                        createNewFileInPath();
+                        break;
+                    case OP3B:
+                        createNewFileInPathFull();
+                        break;
+                    case EXIT:
+                        exitProgram = true;
+                        break;
+                    default:
+                        System.out.println("Not an option.");
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
-        // 3a
-        // createNewFileInPath();
-        // 3b
-        // createNewFileInPathFull()
-
-
+    public static void printMainMenu() {
+        System.out.println();
+        for (int i = 0; i < MenuEnum.values().length; i++) {
+            System.out.printf("[%s]: %s\n", MenuEnum.values()[i], MenuEnum.values()[i].getDesc());
+        }
+        System.out.println();
     }
 
     public static void askAndPrintUserDirToPrint() {
