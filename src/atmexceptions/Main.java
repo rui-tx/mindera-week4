@@ -1,10 +1,5 @@
 package atmexceptions;
 
-import atmexceptions.exceptions.pinErrorException;
-import atmexceptions.exceptions.pinToManyAttemptsException;
-
-import static atmexceptions.ErrorCodesEnum.SUCCESS;
-
 public class Main {
     public static void main(String[] args) {
 
@@ -33,7 +28,7 @@ public class Main {
 
         atm.enterCard(card1, 20);
         atm.checkBalance();
-        atm.withdraw(400);
+        atm.withdraw(500);
         atm.withdraw(400);
         atm.checkBalance();
         atm.enterCard(card1, 20);
