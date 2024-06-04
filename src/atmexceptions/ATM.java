@@ -1,6 +1,6 @@
 package atmexceptions;
 
-import atmexceptions.exceptions.*;
+import atmexceptions.exceptions.card.*;
 
 import static atmexceptions.ErrorCodesEnum.*;
 
@@ -15,26 +15,25 @@ public class ATM {
 
     public ErrorCodesEnum enterCard(Card card, int pin) {
         if (this.card != null) {
-            //throw new atmNoCardInsertedException();
             return CARD_ALREADY_IN;
         }
 
         try {
             card.checkPin(pin);
-        } catch (CardBlocked e) {
+        } catch (CardBlockedException e) {
             System.out.println(e.getMessage());
             return CARD_BLOCKED;
 
-        } catch (CardPinToManyAttempts e) {
+        } catch (CardPinToManyAttemptsException e) {
             System.out.println(e.getMessage());
             return PIN_MAX_ATTEMPTS_REACHED;
 
-        } catch (CardPinError e) {
+        } catch (CardPinErrorException e) {
             System.out.println(e.getMessage());
             return PIN_ERROR;
 
-        } catch (Exception e) {
-            System.out.println("Generic Error: " + e.getMessage());
+        } catch (CardException e) {
+            System.out.println("Error: " + e.getMessage());
             return GENERIC_ERROR;
         }
 
@@ -45,23 +44,26 @@ public class ATM {
     }
 
     public ErrorCodesEnum withdraw(int withdrawValue) {
+        if (card == null) {
+            return NO_CARD;
+        }
 
         try {
             card.withdraw(withdrawValue);
 
-        } catch (CardNegativeBalance e) {
+        } catch (CardNegativeBalanceException e) {
             System.out.println("Can't withdraw: " + e.getMessage());
             return NO_BALANCE;
 
-        } catch (CardWithdrawLimit e) {
+        } catch (CardWithdrawLimitException e) {
             System.out.println("Can't withdraw: " + e.getMessage());
             return WITHDRAW_HIGHER_THEN_ALLOWED;
 
-        } catch (CardDailyLimitReached e) {
+        } catch (CardDailyLimitReachedException e) {
             System.out.println("Can't withdraw: " + e.getMessage());
             return DAILY_LIMIT_REACHED;
 
-        } catch (Exception e) {
+        } catch (CardException e) {
             System.out.println("Can't withdraw: " + e.getMessage());
             return GENERIC_ERROR;
         }

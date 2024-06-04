@@ -6,6 +6,7 @@ public class Main {
         ErrorCodesEnum check;
         Card card1 = new Card("Rui", 20);
         ATM atm = new ATM("CGD");
+        ATM atm2 = new ATM("Novo Banco");
 
         // user tries pin
         /*
@@ -26,7 +27,11 @@ public class Main {
 
          */
 
-        atm.enterCard(card1, 20);
+        atm.enterCard(card1, 21);
+        atm.enterCard(card1, 21);
+        atm.enterCard(card1, 21);
+        atm2.enterCard(card1, 20);
+
         atm.checkBalance();
         atm.withdraw(500);
         atm.withdraw(400);
