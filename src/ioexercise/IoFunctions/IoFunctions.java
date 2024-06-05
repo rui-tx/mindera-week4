@@ -97,6 +97,7 @@ public class IoFunctions {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String fileName = null;
         String path = null;
+        File newFile = null;
 
         try {
             System.out.println("Please input the directory to check if file exists: ");
@@ -104,12 +105,12 @@ public class IoFunctions {
             System.out.print("[directory]> ");
             path = reader.readLine();
 
-            File checkIfExist = new File(path);
-            if (!checkIfExist.isAbsolute()) {
+            newFile = new File(path);
+            if (!newFile.isAbsolute()) {
                 throw new PathIsNotAbsoluteException();
             }
 
-            if (!checkIfExist.exists()) {
+            if (!newFile.exists()) {
                 throw new InvalidPathException();
             }
 
@@ -127,9 +128,11 @@ public class IoFunctions {
             return;
         }
 
-        path = path.concat("/");
-        File checkIfExist = new File(path.concat(fileName));
-        if (!checkIfExist.exists()) {
+        newFile = new File(path + File.separator + fileName);
+
+        //path = path.concat("/");
+        //File checkIfExist = new File(path.concat(fileName));
+        if (!newFile.exists()) {
             throw new InvalidPathException();
         }
 
@@ -149,6 +152,7 @@ public class IoFunctions {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String fileName = null;
         String path = null;
+        File newFile = null;
 
         try {
             System.out.println("Please input the directory to save the file: ");
@@ -160,24 +164,30 @@ public class IoFunctions {
             return;
         }
 
+        newFile = new File(path);
+        if (!newFile.exists()) {
+            throw new InvalidPathException();
+        }
+
         try {
             System.out.println("Please input the file name: ");
             System.out.println("Absolute and Relative paths are valid.");
-            System.out.print(path + "/[file]> ");
+            System.out.print(newFile.getPath() + "/[file]> ");
             fileName = reader.readLine();
         } catch (IOException e) {
             System.out.println("Something went wrong. Please try again.\nDetails: " + e.getMessage());
             return;
         }
 
-        path = path.concat("/");
-        path = path.concat(fileName);
+        newFile = new File(path + File.separator + fileName);
+        //path = path.concat("/");
+        //path = path.concat(fileName);
 
         String text = "This is a new file with this text inside.\n";
 
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new FileWriter(path));
+            writer = new BufferedWriter(new FileWriter(newFile.getAbsoluteFile()));
             writer.write(text);
             writer.flush();
             writer.close();
@@ -186,7 +196,7 @@ public class IoFunctions {
             return;
         }
 
-        System.out.println("The file was made with success! File path: " + path);
+        System.out.println("The file was made with success! File path: " + newFile.getAbsoluteFile());
     }
 
     //3b
@@ -202,6 +212,7 @@ public class IoFunctions {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String fileName = null;
         String path = null;
+        File newFile = null;
 
         try {
             System.out.println("Please input the directory to save the file: ");
@@ -209,12 +220,12 @@ public class IoFunctions {
             System.out.print("[directory]> ");
             path = reader.readLine();
 
-            File checkIfExist = new File(path);
-            if (!checkIfExist.isAbsolute()) {
+            newFile = new File(path);
+            if (!newFile.isAbsolute()) {
                 throw new PathIsNotAbsoluteException();
             }
 
-            if (!checkIfExist.exists()) {
+            if (!newFile.exists()) {
                 throw new InvalidPathException();
             }
 
@@ -226,21 +237,22 @@ public class IoFunctions {
         try {
             System.out.println("Please input the file name: ");
             System.out.println("Absolute and Relative paths are valid.");
-            System.out.print(path + "/[file]> ");
+            System.out.print(newFile.getPath() + "/[file]> ");
             fileName = reader.readLine();
         } catch (IOException e) {
             System.out.println("Something went wrong. Please try again.\nDetails: " + e.getMessage());
             return;
         }
 
-        path = path.concat("/");
-        path = path.concat(fileName);
+        //path = path.concat("/");
+        //path = path.concat(fileName);
 
+        newFile = new File(path + File.separator + fileName);
         String text = "This is a new file with this text inside.\n";
 
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new FileWriter(path));
+            writer = new BufferedWriter(new FileWriter(newFile.getAbsoluteFile()));
             writer.write(text);
             writer.flush();
             writer.close();
@@ -249,6 +261,6 @@ public class IoFunctions {
             return;
         }
 
-        System.out.println("The file was made with success! File path: " + path);
+        System.out.println("The file was made with success! File path: " + newFile.getAbsoluteFile());
     }
 }

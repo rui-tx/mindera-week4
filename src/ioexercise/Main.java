@@ -56,7 +56,7 @@ public class Main {
 
     public static void printMainMenu() {
         System.out.println();
-        System.out.printf("%s\t%s\n", "Option", "Description");
+        System.out.printf("%s\t%s\n", "Opt", "");
         for (int i = 0; i < MenuEnum.values().length; i++) {
             System.out.printf("[%s]\t%s\n", MenuEnum.values()[i].getOption(), MenuEnum.values()[i].getDesc());
         }
