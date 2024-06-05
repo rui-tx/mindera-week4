@@ -10,11 +10,6 @@ public class Node{
         this.nextNode = null;
     }
 
-    public Node(int value, Node nextNode) {
-        this.value = value;
-        this.nextNode = nextNode;
-    }
-
     public int getValue() {
         return value;
     }

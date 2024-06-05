@@ -9,13 +9,13 @@ public class LinkedList implements LinkdedListInterface {
     public void add(int data) {
         Node newNode = new Node(data);
 
-        if (firstNode == null) {
-            firstNode = newNode;
+        if (this.firstNode == null) {
+            this.firstNode = newNode;
         } else {
-            lastNode.setNextNode(newNode);
+            this.lastNode.setNextNode(newNode);
         }
 
-        lastNode = newNode;
+        this.lastNode = newNode;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class LinkedList implements LinkdedListInterface {
             return;
         }
 
-        Node currentNode = firstNode;
+        Node currentNode = this.firstNode;
         while(true) {
             if(currentNode == null || currentNode.getNextNode() == null) {
                 break;
@@ -35,7 +35,7 @@ public class LinkedList implements LinkdedListInterface {
                 if (currentNode.getNextNode().getNextNode() != null) {
                     currentNode.setNextNode(currentNode.getNextNode().getNextNode());
                 } else {
-                    currentNode.setNextNode(null);
+                    currentNode.setNextNode(null); // redundant?
                 }
                 break;
             }
@@ -51,7 +51,7 @@ public class LinkedList implements LinkdedListInterface {
             return;
         }
 
-        Node currentNode = firstNode;
+        Node currentNode = this.firstNode;
         while (currentNode != null) {
             if (currentNode.getValue() == data) {
                 System.out.println("Found: " + currentNode.getValue());
@@ -70,7 +70,7 @@ public class LinkedList implements LinkdedListInterface {
             return;
         }
 
-        Node currentNode = firstNode;
+        Node currentNode = this.firstNode;
         while (currentNode != null) {
             System.out.println(currentNode.getValue());
             currentNode = currentNode.getNextNode();
