@@ -232,8 +232,8 @@ public class LinkedList implements LinkdedListInterface {
     }
 
     public void getLastNodeRecursive() {
-        if(this.firstNode == null) {
-            System.out.println("No nodes created.");
+        if (this.firstNode.getNextNode() == null) {
+            System.out.println("this is last element: " + this.firstNode.getValue());
             return;
         }
 
@@ -247,5 +247,43 @@ public class LinkedList implements LinkdedListInterface {
         }
 
         this.getLastNodeRecursiveAux(node.getNextNode());
+    }
+
+    public void sort() {
+        if(this.firstNode == null) {
+            System.out.println("No nodes created.");
+            return;
+        }
+
+        sortAux(firstNode, true);
+    }
+
+    private void sortAux(Node node, boolean noSwaps) {
+        if (node.getNextNode() == null) {
+            if(noSwaps) {
+                return;
+            }
+
+            noSwaps = true;
+            node = this.firstNode;
+            sortAux(this.firstNode.getNextNode(), noSwaps);
+        }
+
+        if(node.getValue() > node.getNextNode().getValue()) {
+            noSwaps = false;
+            int temp = node.getValue();
+            node.setValue(node.getNextNode().getValue());
+            node.getNextNode().setValue(temp);
+
+            sortAux(node.getNextNode(), noSwaps);
+        }
+
+        if (!noSwaps && node.getNextNode().getNextNode() == null) {
+            noSwaps = true;
+            node = this.firstNode;
+            sortAux(node.getNextNode(), noSwaps);
+        }
+
+        sortAux(node.getNextNode(), noSwaps);
     }
 }
