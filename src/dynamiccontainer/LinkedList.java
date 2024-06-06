@@ -19,7 +19,7 @@ public class LinkedList implements LinkdedListInterface {
         this.currentIndex--;
     }
 
-    public int getCurrentIndex() {
+    public int length() {
         return currentIndex;
     }
 
@@ -28,7 +28,7 @@ public class LinkedList implements LinkdedListInterface {
             throw new NoNodesCreatedException();
         }
 
-        if (index > this.currentIndex) {
+        if (index < 0 || index > this.currentIndex) {
             throw new NodeOutOfBoundsException();
         }
 
@@ -37,15 +37,41 @@ public class LinkedList implements LinkdedListInterface {
     }
 
     private Object getAux(int index, Node node, int currentIndex) throws LinkedListException{
-        if (index == currentIndex) {
+
+        return index == currentIndex || node.getNextNode() == null ?
+                node.getValue() : getAux(index, node.getNextNode(), currentIndex + 1);
+
+       /*
+        if (index == currentIndex || node.getNextNode() == null) {
             return node.getValue();
         }
 
-        if (node.getNextNode() == null) {
-            throw new NoNodeFoundException();
+        return getAux(index, node.getNextNode(), currentIndex + 1);
+
+        */
+    }
+
+    public Object get2(int index) throws LinkedListException {
+        if(this.firstNode == null) {
+            throw new NoNodesCreatedException();
         }
 
-        return getAux(index, node.getNextNode(), currentIndex + 1);
+        if (index < 0 || index > this.currentIndex) {
+            throw new NodeOutOfBoundsException();
+        }
+
+        int currentIndex = 0;
+        Node currentNode = this.firstNode;
+        while(index != currentIndex) {
+            if (currentNode.getNextNode() == null) { // last item
+                break;
+            }
+
+            currentNode = currentNode.getNextNode();
+            currentIndex++;
+        }
+
+        return currentNode.getValue();
     }
 
     @Override
@@ -121,6 +147,8 @@ public class LinkedList implements LinkdedListInterface {
         }
 
         this.firstNode = this.firstNode.getNextNode();
+        this.decreaseIndex();
+
     }
 
     public void pop() throws LinkedListException{
@@ -134,12 +162,14 @@ public class LinkedList implements LinkdedListInterface {
         }
 
         this.popAux(this.firstNode);
+
     }
 
     private void popAux(Node node) {
         if (node.getNextNode() == this.lastNode) {
             node.setNextNode(null);
             this.lastNode = node;
+            this.decreaseIndex();
             return;
         }
 
