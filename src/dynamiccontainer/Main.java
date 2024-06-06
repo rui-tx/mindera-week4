@@ -1,5 +1,7 @@
 package dynamiccontainer;
 
+import dynamiccontainer.exceptions.LinkedListException;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -23,7 +25,12 @@ public class Main {
         //list.getLastNodeRecursive();
 
         System.out.println();
-        list.printListRecursive();
+
+        try {
+            list.printListRecursive();
+        } catch (LinkedListException e) {
+            System.out.println(e.getMessage());
+        }
 
         list.add(50);
         list.add(23);
@@ -33,8 +40,25 @@ public class Main {
         list.add(155);
         list.add(3);
         list.add(-1000);
-        list.sort();
+
+        try {
+            list.remove(-99);
+        } catch (LinkedListException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            list.sort();
+        } catch (LinkedListException e) {
+            System.out.println(e.getMessage());
+
+        }
         System.out.println();
-        list.printListRecursive();
+
+        try {
+            list.printListRecursive();
+        } catch (LinkedListException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

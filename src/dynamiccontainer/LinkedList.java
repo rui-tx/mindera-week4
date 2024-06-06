@@ -1,5 +1,10 @@
 package dynamiccontainer;
 
+import dynamiccontainer.exceptions.LinkedListException;
+import dynamiccontainer.exceptions.NoNodeFoundException;
+import dynamiccontainer.exceptions.NoNodesCreatedException;
+import dynamiccontainer.exceptions.NodeOutOfBandsException;
+
 public class LinkedList implements LinkdedListInterface {
 
     Node firstNode;
@@ -19,16 +24,16 @@ public class LinkedList implements LinkdedListInterface {
     }
 
     @Override
-    public void remove(int data) {
+    public void remove(int data) throws LinkedListException {
         if(this.firstNode == null) {
-            System.out.println("No nodes created.");
-            return;
+            throw new NoNodesCreatedException();
         }
 
         Node currentNode = this.firstNode;
         while(true) {
             if(currentNode == null || currentNode.getNextNode() == null) {
-                break;
+                throw new NoNodeFoundException();
+
             }
 
             if(currentNode.getNextNode().getValue() == data) {
@@ -44,10 +49,9 @@ public class LinkedList implements LinkdedListInterface {
         }
     }
 
-    public void removeRecursive(int data) {
+    public void removeRecursive(int data) throws LinkedListException {
         if(this.firstNode == null) {
-            System.out.println("No nodes created.");
-            return;
+            throw new NoNodesCreatedException();
         }
         // need to check first
         // if
@@ -55,10 +59,9 @@ public class LinkedList implements LinkdedListInterface {
         this.removeRecursiveAux(data, this.firstNode);
     }
 
-    private void removeRecursiveAux(int data, Node node) {
+    private void removeRecursiveAux(int data, Node node) throws LinkedListException {
         if (node.getNextNode() == null) {
-            System.out.println("No values found.");
-            return;
+            throw new NoNodeFoundException();
         }
 
         if (node.getNextNode().getValue() == data) {
@@ -73,20 +76,19 @@ public class LinkedList implements LinkdedListInterface {
         this.removeRecursiveAux(data, node.getNextNode());
     }
 
-    public void headPop() {
+    public void headPop() throws LinkedListException {
         if(this.firstNode == null) {
-            System.out.println("No nodes created.");
-            return;
+            throw new NoNodesCreatedException();
         }
 
         this.firstNode = this.firstNode.getNextNode();
     }
 
-    public void pop() {
+    public void pop() throws LinkedListException{
         if(this.firstNode == null) {
-            System.out.println("No nodes created.");
-            return;
+            throw new NoNodesCreatedException();
         }
+
         if (this.firstNode.getNextNode() == null) {
             System.out.println("Cant delete 1st node for now.");
             return;
@@ -104,41 +106,37 @@ public class LinkedList implements LinkdedListInterface {
         this.popAux(node.getNextNode());
     }
 
-    public void removeNodeWithIndexRecursive(int index) {
+    public void removeNodeWithIndexRecursive(int index) throws LinkedListException{
         if(this.firstNode == null) {
-            System.out.println("No nodes created.");
-            return;
+            throw new NoNodesCreatedException();
         }
 
         int currentIndex = 0;
         this.removeNodeWithIndexAux(index, this.firstNode, currentIndex);
     }
 
-    private void removeNodeWithIndexAux(int index, Node node, int currentIndex) {
+    private void removeNodeWithIndexAux(int index, Node node, int currentIndex) throws LinkedListException{
         if (node.getNextNode() == null) {
-            System.out.println("No values found.");
-            return;
+            throw new NoNodeFoundException();
         }
 
         if (index - 1 == currentIndex) {
             if(node.getNextNode() != null) {
                 Node temp = node.getNextNode().getNextNode();
                 node.setNextNode(temp);
-
                 return;
             }
-            System.out.println("Out of bounds");
-            return;
+
+            throw new NodeOutOfBandsException();
         }
 
         this.removeNodeWithIndexAux(index, node.getNextNode(), currentIndex + 1);
     }
 
     @Override
-    public void printNode(int data) {
+    public void printNode(int data) throws LinkedListException {
         if(this.firstNode == null) {
-            System.out.println("No nodes created.");
-            return;
+            throw new NoNodesCreatedException();
         }
 
         Node currentNode = this.firstNode;
@@ -150,37 +148,35 @@ public class LinkedList implements LinkdedListInterface {
 
             currentNode = currentNode.getNextNode();
         }
-        System.out.println("No nodes found with value: " + data);
+
+        throw new NoNodeFoundException();
     }
 
-    public void printNodeRecursive(int data) {
+    public void printNodeRecursive(int data) throws LinkedListException{
         if(this.firstNode == null) {
-            System.out.println("No nodes created.");
-            return;
+            throw new NoNodesCreatedException();
         }
 
         this.printNodeRecursiveAux(data, this.firstNode);
     }
 
-    private void printNodeRecursiveAux(int data, Node node) {
+    private void printNodeRecursiveAux(int data, Node node) throws LinkedListException {
         if (node.getValue() == data) {
             System.out.println("Found value: " + node.getValue());
             return;
         }
 
         if (node.getNextNode() == null) {
-            System.out.println("No values found.");
-            return;
+            throw new NoNodeFoundException();
         }
 
         this.printNodeRecursiveAux(data, node.getNextNode());
     }
 
     @Override
-    public void printList() {
+    public void printList() throws LinkedListException{
         if(this.firstNode == null) {
-            System.out.println("No nodes created.");
-            return;
+            throw new NoNodesCreatedException();
         }
 
         Node currentNode = this.firstNode;
@@ -190,10 +186,9 @@ public class LinkedList implements LinkdedListInterface {
         }
     }
 
-    public void printListRecursive() {
+    public void printListRecursive() throws LinkedListException{
         if(this.firstNode == null) {
-            System.out.println("No nodes created.");
-            return;
+            throw new NoNodesCreatedException();
         }
 
         this.printListRecursiveAux(this.firstNode);
@@ -208,24 +203,22 @@ public class LinkedList implements LinkdedListInterface {
         this.printListRecursiveAux(node.getNextNode());
     }
 
-    public void getFirstIndexOf(int data) {
+    public void getFirstIndexOf(int data) throws LinkedListException{
         if(this.firstNode == null) {
-            System.out.println("No nodes created.");
-            return;
+            throw new NoNodesCreatedException();
         }
         int index = 0;
         this.getFirstIndexOfAux(data, this.firstNode, index);
     }
 
-    private void getFirstIndexOfAux(int data, Node node, int index) {
+    private void getFirstIndexOfAux(int data, Node node, int index) throws LinkedListException{
         if (node.getValue() == data) {
             System.out.println("Found value at index: " + index);
             return;
         }
 
         if (node.getNextNode() == null) {
-            System.out.println("No node found.");
-            return;
+            throw new NoNodeFoundException();
         }
 
         this.getFirstIndexOfAux(data, node.getNextNode(), index+1);
@@ -249,10 +242,9 @@ public class LinkedList implements LinkdedListInterface {
         this.getLastNodeRecursiveAux(node.getNextNode());
     }
 
-    public void sort() {
+    public void sort() throws LinkedListException{
         if(this.firstNode == null) {
-            System.out.println("No nodes created.");
-            return;
+            throw new NoNodesCreatedException();
         }
 
         sortAux(firstNode, true);
