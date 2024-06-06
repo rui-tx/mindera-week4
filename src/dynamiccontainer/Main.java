@@ -42,6 +42,13 @@ public class Main {
         list.add(-1000);
 
         try {
+            list.pop();
+            list.pop();
+        } catch (LinkedListException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
             list.remove(-99);
         } catch (LinkedListException e) {
             System.out.println(e.getMessage());
