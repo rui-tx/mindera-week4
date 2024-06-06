@@ -319,20 +319,28 @@ public class LinkedList<T> implements List<T> {
         return new Iterator<>() {
 
             private Node headNode = firstNode;
+            private T headNodeValue = firstNode.getValue();
+            private boolean oneMore = false;
 
             @Override
             public boolean hasNext() {
-                return headNode.getNextNode() != null;
+                return headNode != null && headNode.getNextNode() != null;
+                //return headNode.getNextNode() != null;
             }
 
             @Override
             public T next() {
-                if(headNode.getNextNode() == null) {
+                if(headNode == null) {
                     return null;
                 }
 
+                T temp = headNodeValue;
                 headNode = headNode.getNextNode();
-                return headNode.getValue();
+                if (headNode != null) {
+                    headNodeValue = headNode.getValue();
+                }
+
+                return temp;
             }
         };
     }
