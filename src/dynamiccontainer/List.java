@@ -2,7 +2,7 @@ package dynamiccontainer;
 
 import dynamiccontainer.exceptions.LinkedListException;
 
-public interface LinkdedListInterface {
+public interface List {
 
     void add(Object object) ;
     void remove(Object object) throws LinkedListException;

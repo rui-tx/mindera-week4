@@ -1,0 +1,93 @@
+package dynamiccontainer;
+
+import dynamiccontainer.exceptions.LinkedListException;
+import dynamiccontainer.exceptions.NoNodesCreatedException;
+import dynamiccontainer.exceptions.NodeOutOfBoundsException;
+
+public class ArrayList implements List{
+
+    private Object[] array;
+    private int currentIndex;
+
+    public ArrayList() {
+        this.array = new Object[2];
+        this.currentIndex = 0;
+    }
+
+    @Override
+    public void add(Object object) {
+        this.array[this.currentIndex++] = object;
+        this.grow();
+    }
+
+    @Override
+    public void remove(Object object) throws LinkedListException {
+        int indexToRemove = this.getIndexOf(object);
+        if(indexToRemove == -1) {
+            return;
+        }
+
+        for (int i = indexToRemove; i < currentIndex - 1 ; i++) {
+            this.array[i] = this.array[i + 1];
+        }
+
+        this.array[currentIndex - 1] = null;
+        currentIndex--;
+        this.shrink();
+    }
+
+    @Override
+    public void printNode(Object object) throws LinkedListException {
+
+    }
+
+    @Override
+    public void printList() {
+        for (int i = 0; i < currentIndex; i++) {
+            System.out.println(this.array[i]);
+        }
+    }
+
+    public int getLength() {
+        return this.currentIndex;
+    }
+
+    public int getIndexOf(Object object) {
+        for (int i = 0; i < currentIndex; i++) {
+            if(this.array[i].equals(object)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private void grow() {
+        if (this.array.length / 2 >= this.currentIndex ) {
+            return;
+        }
+
+        Object[] temp = new Object[this.array.length * 2];
+        for (int i = 0; i < this.currentIndex; i++) {
+            temp[i] = this.array[i];
+        }
+
+        this.array = temp;
+        System.out.println("Array grew to a total length of " + this.array.length);
+    }
+
+    private void shrink() {
+        // mirror of grow
+        if (this.array.length / 2 < this.currentIndex + 1 ) {
+            return;
+        }
+
+        Object[] temp = new Object[this.array.length / 2];
+        for (int i = 0; i < this.currentIndex; i++) {
+            temp[i] = this.array[i];
+        }
+
+        this.array = temp;
+        System.out.println("Array shrunk to a total length of " + this.array.length);
+    }
+}
