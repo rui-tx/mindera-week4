@@ -4,7 +4,9 @@ import dynamiccontainer.exceptions.LinkedListException;
 import dynamiccontainer.exceptions.NoNodesCreatedException;
 import dynamiccontainer.exceptions.NodeOutOfBoundsException;
 
-public class ArrayList implements List{
+import java.util.Iterator;
+
+public class ArrayList<T> implements List<T>{
 
     private Object[] array;
     private int currentIndex;
@@ -15,13 +17,13 @@ public class ArrayList implements List{
     }
 
     @Override
-    public void add(Object object) {
+    public void add(T object) {
         this.array[this.currentIndex++] = object;
         this.grow();
     }
 
     @Override
-    public void remove(Object object) throws LinkedListException {
+    public void remove(T object) throws LinkedListException {
         int indexToRemove = this.getIndexOf(object);
         if(indexToRemove == -1) {
             return;
@@ -37,7 +39,7 @@ public class ArrayList implements List{
     }
 
     @Override
-    public void printNode(Object object) throws LinkedListException {
+    public void printNode(T object) throws LinkedListException {
 
     }
 
@@ -52,7 +54,7 @@ public class ArrayList implements List{
         return this.currentIndex;
     }
 
-    public int getIndexOf(Object object) {
+    public int getIndexOf(T object) {
         for (int i = 0; i < currentIndex; i++) {
             if(this.array[i].equals(object)) {
                 return i;
@@ -62,7 +64,7 @@ public class ArrayList implements List{
         return -1;
     }
 
-    public int getLastIndexOf(Object object) {
+    public int getLastIndexOf(T object) {
         for (int i = currentIndex - 1; i >= 0; i--) {
             if(this.array[i].equals(object)) {
                 return i;
@@ -72,12 +74,12 @@ public class ArrayList implements List{
         return -1;
     }
 
-    public Object get(int index) {
+    public T get(int index) {
         if(index < 0 || index > this.currentIndex) {
             throw new IndexOutOfBoundsException();
         }
 
-        return this.array[index];
+        return (T) this.array[index];
     }
 
     private void grow() {
@@ -108,5 +110,20 @@ public class ArrayList implements List{
 
         this.array = temp;
         //System.out.println("Array shrunk to a total length of " + this.array.length);
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new Iterator() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public Object next() {
+                return null;
+            }
+        };
     }
 }

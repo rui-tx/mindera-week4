@@ -2,10 +2,10 @@ package dynamiccontainer;
 
 import dynamiccontainer.exceptions.LinkedListException;
 
-public interface List {
+public interface List<T> extends Iterable<T>{
 
-    void add(Object object) ;
-    void remove(Object object) throws LinkedListException;
-    void printNode(Object object) throws LinkedListException;;
+    void add(T object) ;
+    void remove(T object) throws LinkedListException;
+    void printNode(T object) throws LinkedListException;;
     void printList() throws LinkedListException;;
 }
