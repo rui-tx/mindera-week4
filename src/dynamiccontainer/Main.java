@@ -12,8 +12,8 @@ public class Main {
             int[] arrayTest = new int[6];
             arrayTest[i] = i;
             listTest.add("string test " + i);
-            listTest.add(arrayTest);
-            listTest.add(j);
+            //listTest.add(arrayTest);
+            //listTest.add(j);
         }
 
         for (int i = 5; i >= 0; i--) {
@@ -46,18 +46,40 @@ public class Main {
         System.out.println();
 
         try {
-            Object test = list.get(1);
+            //Object test = list.get(1);
+            list.add(1);
+            list.add(1);
+            Object test = listTest.get(3);
+
             System.out.println("index has value: " + test);
         } catch (LinkedListException e) {
             System.out.println(e.getMessage());
         }
 
+
         try {
-            list.printListRecursive();
+            listTest.printListRecursive();
         } catch (LinkedListException e) {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("index is: " + list.getCurrentIndex());
+
+        System.out.println("list last index is: " + listTest.length());
+
+        try {
+            listTest.headPop();
+            listTest.pop();
+        } catch (LinkedListException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            listTest.printListRecursive();
+        } catch (LinkedListException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        System.out.println("list last index is: " + listTest.length());
     }
 }
