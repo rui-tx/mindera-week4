@@ -113,16 +113,19 @@ public class ArrayList<T> implements List<T>{
     }
 
     @Override
-    public Iterator iterator() {
-        return new Iterator() {
+    public Iterator<T> iterator() {
+        return new Iterator<>() {
+
+            private int index = 0;
+
             @Override
             public boolean hasNext() {
-                return false;
+                return (currentIndex > this.index);
             }
 
             @Override
-            public Object next() {
-                return null;
+            public T next() {
+                return (T) array[index++];
             }
         };
     }
