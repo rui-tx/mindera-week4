@@ -97,8 +97,9 @@ public class LinkedList implements LinkdedListInterface {
     }
 
     private void popAux(Node node) {
-        if (node.getNextNode().getNextNode() == null) {
+        if (node.getNextNode() == this.lastNode) {
             node.setNextNode(null);
+            this.lastNode = node;
             return;
         }
 
