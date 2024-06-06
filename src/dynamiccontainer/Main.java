@@ -6,10 +6,29 @@ public class Main {
     public static void main(String[] args) {
 
         LinkedList list = new LinkedList();
-
-        for (int i = 9; i >= 0; i--) {
+        LinkedList listTest = new LinkedList();
+        for (int i = 0; i < 6; i++) {
             int j = i % 2;
-            list.add(i + j);
+            int[] arrayTest = new int[6];
+            arrayTest[i] = i;
+            listTest.add("string test " + i);
+            listTest.add(arrayTest);
+            listTest.add(j);
+        }
+
+        for (int i = 5; i >= 0; i--) {
+            int j = i % 2;
+            int[] arrayTest = new int[6];
+            arrayTest[i] = i;
+            list.add("string test " + i); // string
+            list.add(arrayTest); // array
+            list.add(j); // int
+            list.add(listTest); // another linked list
+            try {
+                list.add(listTest.get(0)); // add 1st value from node from another list
+            } catch (LinkedListException e) {
+                System.out.println(e.getMessage());
+            }
         }
 
         //list.printList();
@@ -27,45 +46,18 @@ public class Main {
         System.out.println();
 
         try {
-            list.printListRecursive();
+            Object test = list.get(1);
+            System.out.println("index has value: " + test);
         } catch (LinkedListException e) {
             System.out.println(e.getMessage());
         }
-
-        list.add(50);
-        list.add(23);
-        list.add(99);
-        list.add(-2);
-        list.add(0);
-        list.add(155);
-        list.add(3);
-        list.add(-1000);
-
-        try {
-            list.pop();
-            list.pop();
-        } catch (LinkedListException e) {
-            System.out.println(e.getMessage());
-        }
-
-        try {
-            list.remove(-99);
-        } catch (LinkedListException e) {
-            System.out.println(e.getMessage());
-        }
-
-        try {
-            list.sort();
-        } catch (LinkedListException e) {
-            System.out.println(e.getMessage());
-
-        }
-        System.out.println();
 
         try {
             list.printListRecursive();
         } catch (LinkedListException e) {
             System.out.println(e.getMessage());
         }
+
+        System.out.println("index is: " + list.getCurrentIndex());
     }
 }
