@@ -8,23 +8,17 @@ public class Main {
         LinkedList list = new LinkedList();
         ArrayList arrayList = new ArrayList();
 
-        for (int i = 15; i >= 0; i--) {
+        for (int i = 4; i >= 0; i--) {
             arrayList.add(i);
             //System.out.println("array size = " + arrayList.getLength());
         }
 
-        try {
-            arrayList.remove(4);
-            arrayList.remove(5);
-            arrayList.remove(7);
-            arrayList.remove(8);
-            arrayList.remove(9);
-            arrayList.remove(0);
-            arrayList.remove(1);
-            //arrayList.remove(2);
-        } catch (LinkedListException e) {
-            System.out.println(e.getMessage());
-        }
+        //arrayList.remove(4);
+        System.out.println("first index of 1: " + arrayList.getIndexOf(1));
+        arrayList.add(1);
+        arrayList.add(1);
+        System.out.println("last index of 1: " + arrayList.getLastIndexOf(1));
+        //arrayList.remove(2);
 
         arrayList.printList();
     }

@@ -10,7 +10,7 @@ public class ArrayList implements List{
     private int currentIndex;
 
     public ArrayList() {
-        this.array = new Object[2];
+        this.array = new Object[8];
         this.currentIndex = 0;
     }
 
@@ -62,6 +62,24 @@ public class ArrayList implements List{
         return -1;
     }
 
+    public int getLastIndexOf(Object object) {
+        for (int i = currentIndex - 1; i >= 0; i--) {
+            if(this.array[i].equals(object)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public Object get(int index) {
+        if(index < 0 || index > this.currentIndex) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        return this.array[index];
+    }
+
     private void grow() {
         if (this.array.length / 2 >= this.currentIndex ) {
             return;
@@ -73,21 +91,22 @@ public class ArrayList implements List{
         }
 
         this.array = temp;
-        System.out.println("Array grew to a total length of " + this.array.length);
+        //System.out.println("Array grew to a total length of " + this.array.length);
     }
 
     private void shrink() {
         // mirror of grow
-        if (this.array.length / 2 < this.currentIndex + 1 ) {
+        if (this.array.length / 2 <= this.currentIndex ) {
             return;
         }
 
+        // brute
         Object[] temp = new Object[this.array.length / 2];
         for (int i = 0; i < this.currentIndex; i++) {
             temp[i] = this.array[i];
         }
 
         this.array = temp;
-        System.out.println("Array shrunk to a total length of " + this.array.length);
+        //System.out.println("Array shrunk to a total length of " + this.array.length);
     }
 }
