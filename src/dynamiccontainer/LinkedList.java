@@ -5,6 +5,8 @@ import dynamiccontainer.exceptions.NoNodeFoundException;
 import dynamiccontainer.exceptions.NoNodesCreatedException;
 import dynamiccontainer.exceptions.NodeOutOfBoundsException;
 
+import java.util.Iterator;
+
 public class LinkedList implements List {
 
     private Node firstNode;
@@ -310,6 +312,11 @@ public class LinkedList implements List {
         }
 
         this.getLastNodeRecursiveAux(node.getNextNode());
+    }
+
+    @Override
+    public Iterator iterator() {
+        return null;
     }
 
     /*

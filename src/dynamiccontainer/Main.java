@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
 
         LinkedList list = new LinkedList();
-        ArrayList arrayList = new ArrayList();
+        ArrayList<Integer> arrayList = new ArrayList<>();
 
         for (int i = 4; i >= 0; i--) {
             arrayList.add(i);
