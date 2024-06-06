@@ -5,11 +5,14 @@ import dynamiccontainer.exceptions.LinkedListException;
 public class Main {
     public static void main(String[] args) {
 
+
+
+
         LinkedList list = new LinkedList();
 
-        for (int i = 9; i >= 0; i--) {
-            int j = i % 2;
-            list.add(i + j);
+        for (int i = 5; i >= 0; i--) {
+            //int j = i % 2;
+            list.add(i);
         }
 
         //list.printList();
@@ -27,45 +30,18 @@ public class Main {
         System.out.println();
 
         try {
-            list.printListRecursive();
+            int test = list.get(5);
+            System.out.println("index has value: " + test);
         } catch (LinkedListException e) {
             System.out.println(e.getMessage());
         }
-
-        list.add(50);
-        list.add(23);
-        list.add(99);
-        list.add(-2);
-        list.add(0);
-        list.add(155);
-        list.add(3);
-        list.add(-1000);
-
-        try {
-            list.pop();
-            list.pop();
-        } catch (LinkedListException e) {
-            System.out.println(e.getMessage());
-        }
-
-        try {
-            list.remove(-99);
-        } catch (LinkedListException e) {
-            System.out.println(e.getMessage());
-        }
-
-        try {
-            list.sort();
-        } catch (LinkedListException e) {
-            System.out.println(e.getMessage());
-
-        }
-        System.out.println();
 
         try {
             list.printListRecursive();
         } catch (LinkedListException e) {
             System.out.println(e.getMessage());
         }
+
+        System.out.println("index is: " + list.getCurrentIndex());
     }
 }

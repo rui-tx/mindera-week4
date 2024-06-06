@@ -7,12 +7,51 @@ import dynamiccontainer.exceptions.NodeOutOfBoundsException;
 
 public class LinkedList implements LinkdedListInterface {
 
-    Node firstNode;
-    Node lastNode;
+    private Node firstNode;
+    private Node lastNode;
+    private int currentIndex;
+
+    private void incrementIndex() {
+        this.currentIndex++;
+    }
+
+    private void decreaseIndex() {
+        this.currentIndex--;
+    }
+
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public int get(int index) throws LinkedListException {
+        if(this.firstNode == null) {
+            throw new NoNodesCreatedException();
+        }
+
+        if (index > this.currentIndex) {
+            throw new NodeOutOfBoundsException();
+        }
+
+        int currentIndex = 0;
+        return getAux(index, this.firstNode, currentIndex);
+    }
+
+    private int getAux(int index, Node node, int currentIndex) throws LinkedListException{
+        if (index == currentIndex) {
+            return node.value;
+        }
+
+        if (node.getNextNode() == null) {
+            throw new NoNodeFoundException();
+        }
+
+        return getAux(index, node.getNextNode(), currentIndex + 1);
+    }
 
     @Override
     public void add(int data) {
         Node newNode = new Node(data);
+        this.incrementIndex();
 
         if (this.firstNode == null) {
             this.firstNode = newNode;
@@ -31,7 +70,7 @@ public class LinkedList implements LinkdedListInterface {
 
         Node currentNode = this.firstNode;
         while(true) {
-            if(currentNode == null || currentNode.getNextNode() == null) {
+            if(currentNode.getNextNode() == null) {
                 throw new NoNodeFoundException();
             }
 
@@ -41,6 +80,7 @@ public class LinkedList implements LinkdedListInterface {
                 } else {
                     currentNode.setNextNode(null); // redundant?
                 }
+                this.decreaseIndex();
                 break;
             }
 
@@ -277,5 +317,33 @@ public class LinkedList implements LinkdedListInterface {
         }
 
         sortAux(node.getNextNode(), noSwaps);
+    }
+
+    private static class Node{
+
+        private int value;
+        private Node nextNode;
+
+        public Node(int value) {
+            this.value = value;
+            this.nextNode = null;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public void setValue(int value) {
+            this.value = value;
+        }
+
+        public Node getNextNode() {
+            return nextNode;
+        }
+
+        public void setNextNode(Node nextNode) {
+            this.nextNode = nextNode;
+        }
+
     }
 }
