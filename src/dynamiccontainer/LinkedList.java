@@ -5,7 +5,7 @@ import dynamiccontainer.exceptions.NoNodeFoundException;
 import dynamiccontainer.exceptions.NoNodesCreatedException;
 import dynamiccontainer.exceptions.NodeOutOfBoundsException;
 
-public class LinkedList implements LinkdedListInterface {
+public class LinkedList implements List {
 
     private Node firstNode;
     private Node lastNode;
