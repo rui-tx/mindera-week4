@@ -3,7 +3,7 @@ package dynamiccontainer;
 import dynamiccontainer.exceptions.LinkedListException;
 import dynamiccontainer.exceptions.NoNodeFoundException;
 import dynamiccontainer.exceptions.NoNodesCreatedException;
-import dynamiccontainer.exceptions.NodeOutOfBandsException;
+import dynamiccontainer.exceptions.NodeOutOfBoundsException;
 
 public class LinkedList implements LinkdedListInterface {
 
@@ -33,7 +33,6 @@ public class LinkedList implements LinkdedListInterface {
         while(true) {
             if(currentNode == null || currentNode.getNextNode() == null) {
                 throw new NoNodeFoundException();
-
             }
 
             if(currentNode.getNextNode().getValue() == data) {
@@ -127,7 +126,7 @@ public class LinkedList implements LinkdedListInterface {
                 return;
             }
 
-            throw new NodeOutOfBandsException();
+            throw new NodeOutOfBoundsException();
         }
 
         this.removeNodeWithIndexAux(index, node.getNextNode(), currentIndex + 1);
