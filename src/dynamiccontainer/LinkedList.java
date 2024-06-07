@@ -26,7 +26,7 @@ public class LinkedList<T> implements List<T> {
     }
 
     public T get(int index) throws LinkedListException {
-        if(this.firstNode == null) {
+        if (this.firstNode == null) {
             throw new NoNodesCreatedException();
         }
 
@@ -38,7 +38,7 @@ public class LinkedList<T> implements List<T> {
         return getAux(index, this.firstNode, currentIndex);
     }
 
-    private T getAux(int index, Node node, int currentIndex) throws LinkedListException{
+    private T getAux(int index, Node node, int currentIndex) throws LinkedListException {
 
         return index == currentIndex || node.getNextNode() == null ?
                 node.getValue() : getAux(index, node.getNextNode(), currentIndex + 1);
@@ -54,7 +54,7 @@ public class LinkedList<T> implements List<T> {
     }
 
     public T get2(int index) throws LinkedListException {
-        if(this.firstNode == null) {
+        if (this.firstNode == null) {
             throw new NoNodesCreatedException();
         }
 
@@ -64,7 +64,7 @@ public class LinkedList<T> implements List<T> {
 
         int currentIndex = 0;
         Node currentNode = this.firstNode;
-        while(index != currentIndex) {
+        while (index != currentIndex) {
             if (currentNode.getNextNode() == null) { // last item
                 break;
             }
@@ -79,7 +79,6 @@ public class LinkedList<T> implements List<T> {
     @Override
     public void add(T object) {
         Node newNode = new Node(object);
-        this.incrementIndex();
 
         if (this.firstNode == null) {
             this.firstNode = newNode;
@@ -87,22 +86,23 @@ public class LinkedList<T> implements List<T> {
             this.lastNode.setNextNode(newNode);
         }
 
+        this.incrementIndex();
         this.lastNode = newNode;
     }
 
     @Override
     public void remove(T object) throws LinkedListException {
-        if(this.firstNode == null) {
+        if (this.firstNode == null) {
             throw new NoNodesCreatedException();
         }
 
         Node currentNode = this.firstNode;
-        while(true) {
-            if(currentNode.getNextNode() == null) {
+        while (true) {
+            if (currentNode.getNextNode() == null) {
                 throw new NoNodeFoundException();
             }
 
-            if(currentNode.getNextNode().getValue().equals(object)) {
+            if (currentNode.getNextNode().getValue().equals(object)) {
                 if (currentNode.getNextNode().getNextNode() != null) {
                     currentNode.setNextNode(currentNode.getNextNode().getNextNode());
                 } else {
@@ -117,7 +117,7 @@ public class LinkedList<T> implements List<T> {
     }
 
     public void removeRecursive(T object) throws LinkedListException {
-        if(this.firstNode == null) {
+        if (this.firstNode == null) {
             throw new NoNodesCreatedException();
         }
         // need to check first
@@ -144,7 +144,7 @@ public class LinkedList<T> implements List<T> {
     }
 
     public void headPop() throws LinkedListException {
-        if(this.firstNode == null) {
+        if (this.firstNode == null) {
             throw new NoNodesCreatedException();
         }
 
@@ -153,8 +153,8 @@ public class LinkedList<T> implements List<T> {
 
     }
 
-    public void pop() throws LinkedListException{
-        if(this.firstNode == null) {
+    public void pop() throws LinkedListException {
+        if (this.firstNode == null) {
             throw new NoNodesCreatedException();
         }
 
@@ -178,8 +178,8 @@ public class LinkedList<T> implements List<T> {
         this.popAux(node.getNextNode());
     }
 
-    public void removeNodeWithIndexRecursive(int index) throws LinkedListException{
-        if(this.firstNode == null) {
+    public void removeNodeWithIndexRecursive(int index) throws LinkedListException {
+        if (this.firstNode == null) {
             throw new NoNodesCreatedException();
         }
 
@@ -187,13 +187,13 @@ public class LinkedList<T> implements List<T> {
         this.removeNodeWithIndexAux(index, this.firstNode, currentIndex);
     }
 
-    private void removeNodeWithIndexAux(int index, Node node, int currentIndex) throws LinkedListException{
+    private void removeNodeWithIndexAux(int index, Node node, int currentIndex) throws LinkedListException {
         if (node.getNextNode() == null) {
             throw new NoNodeFoundException();
         }
 
         if (index - 1 == currentIndex) {
-            if(node.getNextNode() != null) {
+            if (node.getNextNode() != null) {
                 Node temp = node.getNextNode().getNextNode();
                 node.setNextNode(temp);
                 return;
@@ -207,7 +207,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public void printNode(T object) throws LinkedListException {
-        if(this.firstNode == null) {
+        if (this.firstNode == null) {
             throw new NoNodesCreatedException();
         }
 
@@ -224,8 +224,8 @@ public class LinkedList<T> implements List<T> {
         throw new NoNodeFoundException();
     }
 
-    public void printNodeRecursive(T object) throws LinkedListException{
-        if(this.firstNode == null) {
+    public void printNodeRecursive(T object) throws LinkedListException {
+        if (this.firstNode == null) {
             throw new NoNodesCreatedException();
         }
 
@@ -246,8 +246,8 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public void printList() throws LinkedListException{
-        if(this.firstNode == null) {
+    public void printList() throws LinkedListException {
+        if (this.firstNode == null) {
             throw new NoNodesCreatedException();
         }
 
@@ -258,8 +258,8 @@ public class LinkedList<T> implements List<T> {
         }
     }
 
-    public void printListRecursive() throws LinkedListException{
-        if(this.firstNode == null) {
+    public void printListRecursive() throws LinkedListException {
+        if (this.firstNode == null) {
             throw new NoNodesCreatedException();
         }
 
@@ -275,15 +275,15 @@ public class LinkedList<T> implements List<T> {
         this.printListRecursiveAux(node.getNextNode());
     }
 
-    public void getFirstIndexOf(T object) throws LinkedListException{
-        if(this.firstNode == null) {
+    public void getFirstIndexOf(T object) throws LinkedListException {
+        if (this.firstNode == null) {
             throw new NoNodesCreatedException();
         }
         int index = 0;
         this.getFirstIndexOfAux(object, this.firstNode, index);
     }
 
-    private void getFirstIndexOfAux(T object, Node node, int index) throws LinkedListException{
+    private void getFirstIndexOfAux(T object, Node node, int index) throws LinkedListException {
         if (node.getValue().equals(object)) {
             System.out.println("Found object at index: " + index);
             return;
@@ -293,7 +293,7 @@ public class LinkedList<T> implements List<T> {
             throw new NoNodeFoundException();
         }
 
-        this.getFirstIndexOfAux(object, node.getNextNode(), index+1);
+        this.getFirstIndexOfAux(object, node.getNextNode(), index + 1);
     }
 
     public void getLastNodeRecursive() {
@@ -318,29 +318,29 @@ public class LinkedList<T> implements List<T> {
     public Iterator<T> iterator() {
         return new Iterator<>() {
 
-            private Node headNode = firstNode;
-            private T headNodeValue = firstNode.getValue();
-            private boolean oneMore = false;
+            private Node headNode = null;
 
             @Override
             public boolean hasNext() {
-                return headNode != null && headNode.getNextNode() != null;
+                if (headNode == null && firstNode != null) {
+                    return true;
+                }
+
+                return headNode.getNextNode() != null;
                 //return headNode.getNextNode() != null;
             }
 
             @Override
             public T next() {
-                if(headNode == null) {
-                    return null;
+                if (headNode == null && firstNode != null) {
+                    headNode = firstNode;
+                } else {
+                    if (headNode == null || headNode.getNextNode() == null) {
+                        return null;
+                    }
+                    headNode = headNode.getNextNode();
                 }
-
-                T temp = headNodeValue;
-                headNode = headNode.getNextNode();
-                if (headNode != null) {
-                    headNodeValue = headNode.getValue();
-                }
-
-                return temp;
+                return headNode.getValue();
             }
         };
     }
@@ -386,7 +386,7 @@ public class LinkedList<T> implements List<T> {
 
      */
 
-    private class Node{
+    private class Node {
 
         private T object;
         private Node nextNode;
